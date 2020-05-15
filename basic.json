@@ -1,0 +1,27 @@
+{
+    "builders": [{
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "source_ami": "ami-02eac2c0129f6376b",
+      "instance_type": "t2.micro",
+      "ssh_username": "centos",
+      "ssh_keypair_name": "packer-key",
+      "ssh_private_key_file": "/home/ec2-user/.ssh/id_rsa",
+      "ami_name": "basic-example {{timestamp}}"
+    }],
+    "provisioners": [
+      {
+         "type": "shell",
+            "inline":[
+                "sudo yum install httpd -y",
+                "sudo yum install telnet -y",
+                "sudo systemctl start httpd"
+             ]
+       },
+       {
+        "type": "breakpoint",
+        "note": "Wait for you to delete"
+        }
+    ]
+  }
+  
